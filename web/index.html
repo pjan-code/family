@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#f6f4ef">
+  <title>Familjen</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23233a4a'/%3E%3Crect x='14' y='18' width='36' height='32' rx='4' fill='none' stroke='%23fff' stroke-width='4'/%3E%3Cpath d='M14 28h36M24 12v10M40 12v10' stroke='%23fff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" hidden>
+    <header class="top">
+      <div class="week">
+        <div class="week-no" id="weekNo">Vecka –</div>
+        <div class="week-range" id="weekRange"></div>
+      </div>
+      <nav class="nav" aria-label="Byt vecka">
+        <button id="prev" aria-label="Föregående vecka">‹</button>
+        <button id="today">Idag</button>
+        <button id="next" aria-label="Nästa vecka">›</button>
+      </nav>
+      <ul class="legend" id="legend"></ul>
+      <div class="clock">
+        <div class="clock-time" id="clockTime">--:--</div>
+        <div class="clock-date" id="clockDate"></div>
+      </div>
+    </header>
+
+    <main class="board">
+      <section class="days" id="days" aria-live="polite"></section>
+      <aside class="side">
+        <section class="panel">
+          <h2>Att göra</h2>
+          <ul class="list" id="todo"></ul>
+        </section>
+        <section class="panel">
+          <h2>Anteckningar</h2>
+          <ul class="list" id="notes"></ul>
+        </section>
+        <footer class="status" id="status"></footer>
+      </aside>
+    </main>
+  </div>
+
+  <div id="lock" class="lock" hidden>
+    <form id="lockForm" class="lock-card">
+      <h1>Familjen</h1>
+      <p>Klistra in familjelänken eller koden för att låsa upp kalendern.</p>
+      <input id="lockInput" type="password" autocomplete="off" spellcheck="false" placeholder="Länk eller kod">
+      <button type="submit">Lås upp</button>
+      <p class="lock-err" id="lockErr" role="alert"></p>
+    </form>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

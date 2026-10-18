@@ -1,0 +1,23 @@
+# GitHub stänger av schemalagda workflows i publika repon efter 60 dagar utan aktivitet.
+# Den här slår på dem igen en gång i månaden så att synken aldrig tystnar.
+name: Håll schemat vid liv
+
+on:
+  schedule:
+    - cron: '17 5 1 * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Återaktivera workflows
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for wf in deploy.yml keepalive.yml; do
+            gh api -X PUT "repos/${{ github.repository }}/actions/workflows/$wf/enable" && echo "✓ $wf"
+          done

@@ -1,0 +1,7 @@
+node_modules/
+site/
+_site/
+config.local.json
+*.local.json
+fixtures/
+.DS_Store

@@ -1,0 +1,20 @@
+{
+  "name": "family-calendar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Familjekalender: synkar iCal-flöden till en krypterad datafil för en statisk väggsida.",
+  "scripts": {
+    "sync": "node sync/sync.mjs",
+    "sync:local": "node sync/sync.mjs --config config.local.json",
+    "test": "node --test sync/*.test.mjs",
+    "key": "node tools/new-key.mjs",
+    "serve": "node tools/serve.mjs"
+  },
+  "dependencies": {
+    "node-ical": "0.27.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

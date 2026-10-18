@@ -1,0 +1,28 @@
+{
+  "timezone": "Europe/Stockholm",
+  "weeksBack": 1,
+  "weeksAhead": 10,
+  "people": [
+    { "id": "carina", "name": "Carina", "color": "#c2185b" },
+    { "id": "peter",  "name": "Peter",  "color": "#2f6fb0" },
+    { "id": "elliot", "name": "Elliot", "color": "#2e8b57" },
+    { "id": "ebbe",   "name": "Ebbe",   "color": "#e07b00" },
+    { "id": "elis",   "name": "Elis",   "color": "#7b4fc4" }
+  ],
+  "feeds": [
+    { "id": "ebbe-hockey",   "url": "https://example.invalid/lag1.ics", "people": ["ebbe"],   "parser": "laget",      "label": "Hockey", "dim": ["Lerums BK Röd"] },
+    { "id": "elis-lekis",    "url": "https://example.invalid/lag2.ics", "people": ["elis"],   "parser": "laget",      "label": "Lekis" },
+    { "id": "elliot-hockey", "url": "https://example.invalid/lag3",     "people": ["elliot"], "parser": "svenskalag", "label": "Hockey" },
+    { "id": "peter",         "url": "https://example.invalid/peter.ics", "people": ["peter"] },
+    { "id": "carina",        "url": "https://example.invalid/carina.ics", "people": ["carina"] },
+    { "id": "familjen",      "url": "https://example.invalid/familjen.ics", "kind": "notes" },
+    { "id": "helgdagar",     "url": "https://example.invalid/helgdagar.ics", "kind": "holiday" }
+  ],
+  "school": {
+    "elliot": { "mon": "08:00-15:10", "tue": "09:15-14:45", "wed": "08:10-14:50", "thu": "08:00-15:05", "fri": "09:40-15:05" }
+  },
+  "schoolBreaks": [
+    { "from": "2026-10-26", "to": "2026-10-30", "label": "Höstlov" },
+    { "from": "2026-12-21", "to": "2027-01-08", "label": "Jullov" }
+  ]
+}

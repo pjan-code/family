@@ -1,0 +1,72 @@
+name: Synka och publicera
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'   # var 15:e minut (GitHub kan fördröja några minuter)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore: ['**.md']
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TZ: Europe/Stockholm
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Läckvakt – inga kalenderadresser i koden
+        run: |
+          if grep -rEnI 'private-[0-9a-f]{16,}|calendar\.google\.com/calendar/ical|cal\.laget\.se|cal\.svenskalag\.se' \
+               --exclude-dir=.git --exclude-dir=node_modules . ; then
+            echo "::error::Det ser ut som en kalenderadress ligger i repot. Flytta den till secret CALENDAR_CONFIG."
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Hämta flöden och kryptera
+        env:
+          CALENDAR_CONFIG: ${{ secrets.CALENDAR_CONFIG }}
+          FAMILY_KEY: ${{ secrets.FAMILY_KEY }}
+          PREVIOUS_DATA_URL: ${{ steps.pages.outputs.base_url }}/data.enc.json
+        run: node sync/sync.mjs --out _site/data.enc.json
+
+      - name: Lägg till webbsidan
+        run: |
+          cp web/* _site/
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

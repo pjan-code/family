@@ -130,7 +130,7 @@ export function normalizeFeed(icsText, feed, ctx) {
       const parsed = parse(raw, feed);
       let title = parsed.title || raw.title || '(utan titel)';
       const short = shortenMatch(title, feed.ownTeam);
-      if (short) title = short;
+      if (short) title = short.title;
       const kind = feed.kind || 'event';
 
       let people = [...(feed.people || [])];
@@ -152,6 +152,7 @@ export function normalizeFeed(icsText, feed, ctx) {
       };
       if (allDay && item.end <= item.start) item.end = addDays(item.start, 1);
       if (feed.label) item.label = feed.label;
+      if (short?.team) item.team = short.team;
       if (raw.location) item.location = tidyLocation(raw.location);
       if (parsed.meet?.time) item.meet = parsed.meet;
       if (parsed.note) item.note = parsed.note;

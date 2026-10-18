@@ -12,7 +12,7 @@ const previous = { events: [{ id: 'old1', feed: 'broken', kind: 'event', people:
 const data = await buildData(cfg, { fetchFeed, previous, now });
 const find = (t) => data.events.filter((e) => e.title.includes(t));
 
-test('Laget: titel, samling, Windows-tidszon, dim', () => {
+test('Laget: titel, samling, Windows-tidszon, lagfärg', () => {
   const tr = find('Träning')[0];
   assert.equal(tr.title, 'Träning');
   assert.equal(tr.start, '2026-10-13T19:00');
@@ -20,9 +20,10 @@ test('Laget: titel, samling, Windows-tidszon, dim', () => {
   assert.equal(find('Hockeyskoj')[0].meet, undefined);
   const [rod] = find('Bäcken');
   const [vit] = find('Frölunda');
-  assert.equal(vit.title, 'Match mot Frölunda HC Röd (Vit, hemma)');
-  assert.equal(rod.dim, true);
-  assert.equal(vit.dim, undefined);
+  assert.equal(vit.title, 'Match mot Frölunda HC Röd (hemma)');
+  assert.equal(vit.team, 'Vit');
+  assert.equal(rod.team, 'Röd');
+  assert.equal(rod.dim, undefined, 'båda lagens matcher visas fullt');
   assert.equal(vit.note, 'Seriematch mot Frölunda och Härryda');
   assert.equal(vit.location, 'Vättlehallen Ishall');
 });

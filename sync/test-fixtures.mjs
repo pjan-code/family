@@ -41,7 +41,7 @@ export const cfg = {
     { id: 'elliot', name: 'Elliot' }, { id: 'ebbe', name: 'Ebbe' }, { id: 'elis', name: 'Elis' },
   ],
   feeds: [
-    { id: 'ebbe', url: 'x', people: ['ebbe'], parser: 'laget', label: 'Hockey', dim: ['Lerums BK Röd'], ownTeam: 'Lerums BK' },
+    { id: 'ebbe', url: 'x', people: ['ebbe'], parser: 'laget', label: 'Hockey', ownTeam: 'Lerums BK' },
     { id: 'elliot', url: 'x', people: ['elliot'], parser: 'svenskalag', label: 'Hockey', ownTeam: 'Sörhaga/Alingsås' },
     { id: 'peter', url: 'x', people: ['peter'] },
     { id: 'holi', url: 'x', kind: 'holiday' },

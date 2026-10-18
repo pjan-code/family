@@ -88,8 +88,8 @@ export function generic(raw) {
 
 export const parsers = { laget, svenskalag, generic };
 
-// "Match Lerums BK Vit - Frölunda HC Röd" + ownTeam "Lerums BK" -> "Match mot Frölunda HC Röd (Vit)"
-// "Match: Skara IK - Sörhaga/Alingsås Hockey" + ownTeam "Sörhaga" -> "Match mot Skara IK (borta)"
+// "Match Lerums BK Vit - Frölunda HC Röd" + ownTeam "Lerums BK" -> { title: "Match mot Frölunda HC Röd (hemma)", team: "Vit" }
+// "Match: Skara IK - Sörhaga/Alingsås Hockey" + ownTeam "Sörhaga" -> { title: "Match mot Skara IK (borta)" }
 export function shortenMatch(title, ownTeam) {
   if (!ownTeam) return null;
   const m = /^Match:?\s+(.+?)\s+-\s+(.+)$/i.exec(title);
@@ -102,7 +102,7 @@ export function shortenMatch(title, ownTeam) {
   const them = homeIsOwn ? b : a;
   const suffix = ours.replace(own, '').replace(/^[\s\-/]*(Hockey)?\s*/i, '').trim();
   const where = homeIsOwn ? 'hemma' : 'borta';
-  return `Match mot ${them} (${suffix ? `${suffix}, ` : ''}${where})`;
+  return { title: `Match mot ${them} (${where})`, team: suffix || null };
 }
 
 /** "Vättlehallen Ishall, Lerums Kommun" -> "Vättlehallen Ishall" */

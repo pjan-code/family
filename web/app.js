@@ -9,6 +9,7 @@
   const REFRESH_MS = 10 * 60 * 1000;
   const IDLE_MS = 3 * 60 * 1000;
   const NIGHT = { from: '21:30', to: '06:00' };
+  const TEAM_COLORS = { 'röd': '#d32f2f', 'vit': '#ffffff', 'blå': '#1e5bb8', 'grön': '#2e7d32', 'svart': '#222', 'gul': '#f2c200' };
   const PALETTE = ['#c2185b', '#2f6fb0', '#2e8b57', '#e07b00', '#7b4fc4', '#00838f', '#8d6e63'];
 
   const $ = (id) => document.getElementById(id);
@@ -148,7 +149,16 @@
       }
     }
 
-    if (e.label) card.appendChild(el('div', 'ev-tag', e.label));
+    if (e.label || e.team) {
+      const tag = el('div', 'ev-tag', e.label || '');
+      if (e.team) {
+        const t = el('span', 'team', e.team);
+        const c = TEAM_COLORS[e.team.toLowerCase()];
+        if (c) t.style.setProperty('--team', c);
+        tag.appendChild(t);
+      }
+      card.appendChild(tag);
+    }
     const title = el('div', 'ev-title');
     const who = whoLabel(e, people);
     if (who) { title.appendChild(el('span', 'ev-who', who)); title.appendChild(document.createTextNode(' · ')); }

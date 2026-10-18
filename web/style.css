@@ -166,6 +166,14 @@ button { font: inherit; color: inherit; }
 .ev-loc, .ev-note { font-size: 0.8em; color: var(--ink-2); overflow-wrap: anywhere; }
 .ev-note { font-style: italic; }
 .ev-tag { font-size: 0.72em; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.04em; }
+.ev-tag .team {
+  display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;
+  color: var(--ink); text-transform: none; letter-spacing: 0; font-weight: 700;
+}
+.ev-tag .team::before {
+  content: ""; width: 0.85em; height: 0.85em; border-radius: 3px;
+  background: var(--team, var(--ink-3)); border: 1px solid var(--ink-3);
+}
 .empty { color: var(--ink-3); font-size: 0.85em; padding: 0.3em 0.2em; }
 
 /* ---------- sidopanel ---------- */

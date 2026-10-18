@@ -5,3 +5,4 @@ config.local.json
 *.local.json
 fixtures/
 .DS_Store
+Claude outputs/
